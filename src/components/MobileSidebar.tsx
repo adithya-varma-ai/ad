@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { 
@@ -19,6 +20,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { useRole } from "@/contexts/RoleContext";
 
 const doctorItems = [
   { title: "Doctor Dashboard", url: "/dashboard/doctor", icon: Heart },
@@ -36,13 +38,12 @@ const hrItems = [
 export function MobileSidebar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { currentRole } = useRole();
   const currentPath = location.pathname;
 
   const isActive = (path: string) => currentPath === path;
-  const isDoctorRoute = currentPath.includes('/doctor') || currentPath.includes('/appointments') || 
-    (currentPath.includes('/analytics') && document.referrer.includes('/doctor')) ||
-    (currentPath.includes('/settings') && document.referrer.includes('/doctor'));
-  const items = isDoctorRoute ? doctorItems : hrItems;
+  // Use role context to determine which items to show
+  const items = currentRole === 'doctor' ? doctorItems : hrItems;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -67,7 +68,7 @@ export function MobileSidebar() {
         <div className="p-4">
           <div className="space-y-1">
             <h4 className="text-sm font-medium text-muted-foreground mb-2">
-              {isDoctorRoute ? "Doctor Portal" : "HR Portal"}
+              {currentRole === 'doctor' ? "Doctor Portal" : "HR Portal"}
             </h4>
             {items.map((item) => (
               <NavLink

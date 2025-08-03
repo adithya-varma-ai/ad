@@ -1,3 +1,4 @@
+
 import { NavLink, useLocation } from "react-router-dom";
 import { 
   Brain, 
@@ -20,6 +21,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useRole } from "@/contexts/RoleContext";
 
 const doctorItems = [
   { title: "Doctor Dashboard", url: "/dashboard/doctor", icon: Heart },
@@ -37,6 +39,7 @@ const hrItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const { currentRole } = useRole();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
 
@@ -46,11 +49,8 @@ export function AppSidebar() {
       ? "bg-primary/10 text-primary font-medium border-r-2 border-primary" 
       : "hover:bg-muted/50 text-muted-foreground hover:text-foreground";
 
-  // Determine which items to show based on current route
-  const isDoctorRoute = currentPath.includes('/doctor') || currentPath.includes('/appointments') || 
-    (currentPath.includes('/analytics') && document.referrer.includes('/doctor')) ||
-    (currentPath.includes('/settings') && document.referrer.includes('/doctor'));
-  const items = isDoctorRoute ? doctorItems : hrItems;
+  // Use role context to determine which items to show
+  const items = currentRole === 'doctor' ? doctorItems : hrItems;
 
   return (
     <Sidebar className={collapsed ? "w-16" : "w-64"} collapsible="icon">
@@ -71,7 +71,7 @@ export function AppSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="px-4 py-2 text-sm font-medium text-muted-foreground">
-            {!collapsed && (isDoctorRoute ? "Doctor Portal" : "HR Portal")}
+            {!collapsed && (currentRole === 'doctor' ? "Doctor Portal" : "HR Portal")}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

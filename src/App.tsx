@@ -1,9 +1,10 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { RoleProvider } from "@/contexts/RoleContext";
 
 // Pages
 import Index from "./pages/Index";
@@ -27,23 +28,25 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          
-          {/* Dashboard Routes */}
-          <Route path="/dashboard" element={<SidebarProvider><DashboardLayout /></SidebarProvider>}>
-            <Route path="doctor" element={<DoctorDashboard />} />
-            <Route path="hr" element={<HRDashboard />} />
-            <Route path="analytics" element={<Analytics />} />
-            <Route path="appointments" element={<Appointments />} />
-            <Route path="patient/:id" element={<PatientProfile />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-          
-          {/* Catch-all route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <RoleProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            
+            {/* Dashboard Routes */}
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route path="doctor" element={<DoctorDashboard />} />
+              <Route path="hr" element={<HRDashboard />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="appointments" element={<Appointments />} />
+              <Route path="patient/:id" element={<PatientProfile />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+            
+            {/* Catch-all route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </RoleProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
