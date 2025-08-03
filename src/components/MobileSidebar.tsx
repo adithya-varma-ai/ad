@@ -39,7 +39,9 @@ export function MobileSidebar() {
   const currentPath = location.pathname;
 
   const isActive = (path: string) => currentPath === path;
-  const isDoctorRoute = currentPath.includes('/doctor') || currentPath.includes('/appointments');
+  const isDoctorRoute = currentPath.includes('/doctor') || currentPath.includes('/appointments') || 
+    (currentPath.includes('/analytics') && document.referrer.includes('/doctor')) ||
+    (currentPath.includes('/settings') && document.referrer.includes('/doctor'));
   const items = isDoctorRoute ? doctorItems : hrItems;
 
   return (

@@ -47,7 +47,9 @@ export function AppSidebar() {
       : "hover:bg-muted/50 text-muted-foreground hover:text-foreground";
 
   // Determine which items to show based on current route
-  const isDoctorRoute = currentPath.includes('/doctor') || currentPath.includes('/appointments');
+  const isDoctorRoute = currentPath.includes('/doctor') || currentPath.includes('/appointments') || 
+    (currentPath.includes('/analytics') && document.referrer.includes('/doctor')) ||
+    (currentPath.includes('/settings') && document.referrer.includes('/doctor'));
   const items = isDoctorRoute ? doctorItems : hrItems;
 
   return (
