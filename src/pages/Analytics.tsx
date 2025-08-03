@@ -35,7 +35,7 @@ const Analytics = () => {
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             <Card className="shadow-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -123,7 +123,7 @@ const Analytics = () => {
             </Card>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
             <Card className="shadow-card">
               <CardHeader>
                 <CardTitle>Service Utilization</CardTitle>
@@ -193,7 +193,7 @@ const Analytics = () => {
         </TabsContent>
 
         <TabsContent value="engagement" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card className="shadow-card">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-2">
@@ -248,7 +248,7 @@ const Analytics = () => {
               <CardDescription>Measured improvements in mental health metrics</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 <div className="text-center p-4 border rounded-lg">
                   <div className="text-3xl font-bold text-metric-excellent mb-2">78%</div>
                   <p className="text-sm text-muted-foreground">Stress Reduction</p>

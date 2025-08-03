@@ -36,7 +36,7 @@ const DoctorDashboard = () => {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <Card className="shadow-card hover:shadow-hover transition-smooth">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Today's Appointments</CardTitle>
@@ -90,7 +90,7 @@ const DoctorDashboard = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Today's Schedule */}
         <Card className="lg:col-span-2 shadow-card">
           <CardHeader>
@@ -166,7 +166,7 @@ const DoctorDashboard = () => {
       </div>
 
       {/* Alerts and Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         <Card className="shadow-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-warning">
