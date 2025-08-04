@@ -32,7 +32,8 @@ const doctorItems = [
 
 const hrItems = [
   { title: "HR Dashboard", url: "/dashboard/hr", icon: Users },
-  { title: "Analytics", url: "/dashboard/analytics", icon: Activity },
+  { title: "Team Analytics", url: "/dashboard/analytics", icon: Activity },
+  { title: "Employee Analytics", url: "/dashboard/employee-analytics", icon: UserCheck },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
 ];
 

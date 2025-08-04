@@ -11,10 +11,15 @@ import {
   Shield, 
   Palette,
   Database,
-  Save
+  Save,
+  Calendar
 } from "lucide-react";
+import DoctorAvailability from "@/components/DoctorAvailability";
+import { useRole } from "@/contexts/RoleContext";
 
 const Settings = () => {
+  const { currentRole } = useRole();
+  
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center">
@@ -29,8 +34,11 @@ const Settings = () => {
       </div>
 
       <Tabs defaultValue="profile" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className={`grid w-full ${currentRole === 'doctor' ? 'grid-cols-6' : 'grid-cols-5'}`}>
           <TabsTrigger value="profile">Profile</TabsTrigger>
+          {currentRole === 'doctor' && (
+            <TabsTrigger value="availability">Availability</TabsTrigger>
+          )}
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger value="appearance">Appearance</TabsTrigger>
@@ -105,6 +113,12 @@ const Settings = () => {
             </CardContent>
           </Card>
         </TabsContent>
+
+        {currentRole === 'doctor' && (
+          <TabsContent value="availability" className="space-y-6">
+            <DoctorAvailability />
+          </TabsContent>
+        )}
 
         <TabsContent value="notifications" className="space-y-6">
           <Card className="shadow-card">

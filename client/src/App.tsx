@@ -15,6 +15,7 @@ import PatientProfile from "./pages/PatientProfile";
 import Analytics from "./pages/Analytics";
 import Appointments from "./pages/Appointments";
 import Settings from "./pages/Settings";
+import EmployeeAnalyticsPage from "./pages/EmployeeAnalytics";
 import NotFound from "./pages/NotFound";
 
 // Layout
@@ -68,6 +69,13 @@ const App = () => (
               {() => (
                 <DashboardLayout>
                   <PatientProfile />
+                </DashboardLayout>
+              )}
+            </Route>
+            <Route path="/dashboard/employee-analytics">
+              {() => (
+                <DashboardLayout>
+                  <EmployeeAnalyticsPage />
                 </DashboardLayout>
               )}
             </Route>
