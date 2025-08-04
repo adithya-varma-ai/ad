@@ -87,6 +87,15 @@ const App = () => (
               )}
             </Route>
             
+            {/* Default dashboard redirect */}
+            <Route path="/dashboard/">
+              {() => (
+                <DashboardLayout>
+                  <DoctorDashboard />
+                </DashboardLayout>
+              )}
+            </Route>
+            
             {/* Catch-all route */}
             <Route component={NotFound} />
           </Switch>
