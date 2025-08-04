@@ -8,7 +8,8 @@ import {
   UserCheck, 
   Settings, 
   Heart,
-  Activity
+  Activity,
+  Clock
 } from "lucide-react";
 import {
   Sidebar,
@@ -26,6 +27,7 @@ import { useRole } from "@/contexts/RoleContext";
 const doctorItems = [
   { title: "Doctor Dashboard", url: "/dashboard/doctor", icon: Heart },
   { title: "Appointments", url: "/dashboard/appointments", icon: Calendar },
+  { title: "Availability", url: "/dashboard/availability", icon: Clock },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
 ];

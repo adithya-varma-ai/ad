@@ -11,11 +11,9 @@ import {
   TrendingUp, 
   MessageSquare,
   Clock,
-  Star,
-  Settings
+  Star
 } from "lucide-react";
 import { useRole } from "@/contexts/RoleContext";
-import DoctorAvailability from "@/components/DoctorAvailability";
 
 const DoctorDashboard = () => {
   const { setCurrentRole } = useRole();
@@ -185,11 +183,6 @@ const DoctorDashboard = () => {
             </div>
           </CardContent>
         </Card>
-      </div>
-
-      {/* Doctor Availability Management */}
-      <div className="mt-8">
-        <DoctorAvailability />
       </div>
     </div>
   );
