@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Router, Route, Switch } from "wouter";
 import { RoleProvider } from "@/contexts/RoleContext";
 
 // Pages
@@ -17,8 +17,7 @@ import Appointments from "./pages/Appointments";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
-// Layout
-import DashboardLayout from "./components/layout/DashboardLayout";
+
 
 const queryClient = new QueryClient();
 
@@ -27,27 +26,25 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <Router>
         <RoleProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
+          <Switch>
+            <Route path="/" component={Index} />
+            <Route path="/login" component={Login} />
             
             {/* Dashboard Routes */}
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route path="doctor" element={<DoctorDashboard />} />
-              <Route path="hr" element={<HRDashboard />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="appointments" element={<Appointments />} />
-              <Route path="patient/:id" element={<PatientProfile />} />
-              <Route path="settings" element={<Settings />} />
-            </Route>
+            <Route path="/dashboard/doctor" component={DoctorDashboard} />
+            <Route path="/dashboard/hr" component={HRDashboard} />
+            <Route path="/dashboard/analytics" component={Analytics} />
+            <Route path="/dashboard/appointments" component={Appointments} />
+            <Route path="/dashboard/patient/:id" component={PatientProfile} />
+            <Route path="/dashboard/settings" component={Settings} />
             
             {/* Catch-all route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+            <Route component={NotFound} />
+          </Switch>
         </RoleProvider>
-      </BrowserRouter>
+      </Router>
     </TooltipProvider>
   </QueryClientProvider>
 );
