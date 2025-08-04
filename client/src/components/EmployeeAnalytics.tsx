@@ -119,22 +119,22 @@ const EmployeeAnalytics = () => {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Employee Analytics</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Employee Analytics</h1>
           <p className="text-muted-foreground mt-1">Individual wellness insights and metrics</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 lg:gap-6">
         {/* Employee List */}
-        <Card className="shadow-card lg:col-span-1">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+        <Card className="shadow-card xl:col-span-1">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <Users className="h-5 w-5 text-primary" />
               Employee Directory
             </CardTitle>
-            <CardDescription>Select an employee to view their wellness analytics</CardDescription>
+            <CardDescription className="text-sm">Select an employee to view their wellness analytics</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 p-4 pt-0">
             {/* Search and Filter */}
             <div className="space-y-3">
               <div className="relative">
@@ -161,7 +161,7 @@ const EmployeeAnalytics = () => {
             </div>
 
             {/* Employee List */}
-            <div className="space-y-2 max-h-96 overflow-y-auto">
+            <div className="space-y-2 max-h-64 sm:max-h-96 overflow-y-auto">
               {filteredEmployees.map((employee) => (
                 <div
                   key={employee.id}
@@ -193,19 +193,19 @@ const EmployeeAnalytics = () => {
         </Card>
 
         {/* Analytics Dashboard */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="xl:col-span-2 space-y-4 lg:space-y-6">
           {selectedEmployee ? (
             <>
               {/* Employee Header */}
               <Card className="shadow-card">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h2 className="text-2xl font-bold">{selectedEmployeeData?.name}</h2>
-                      <p className="text-muted-foreground">{selectedEmployeeData?.position}</p>
-                      <p className="text-sm text-muted-foreground">{selectedEmployeeData?.email}</p>
+                <CardContent className="p-4 lg:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                    <div className="min-w-0 flex-1">
+                      <h2 className="text-xl sm:text-2xl font-bold truncate">{selectedEmployeeData?.name}</h2>
+                      <p className="text-muted-foreground truncate">{selectedEmployeeData?.position}</p>
+                      <p className="text-sm text-muted-foreground truncate">{selectedEmployeeData?.email}</p>
                     </div>
-                    <Badge className="bg-primary/10 text-primary">
+                    <Badge className="bg-primary/10 text-primary self-start sm:self-center flex-shrink-0">
                       {selectedEmployeeData?.department}
                     </Badge>
                   </div>
@@ -221,7 +221,7 @@ const EmployeeAnalytics = () => {
               ) : (
                 <>
                   {/* Wellness Metrics Overview */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Card className="shadow-card">
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between">

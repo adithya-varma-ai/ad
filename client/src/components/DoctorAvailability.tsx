@@ -214,8 +214,14 @@ const DoctorAvailability = () => {
       <CardContent className="space-y-6">
         <Tabs defaultValue="weekly" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="weekly">Weekly Schedule</TabsTrigger>
-            <TabsTrigger value="dates">Specific Dates</TabsTrigger>
+            <TabsTrigger value="weekly" className="text-xs sm:text-sm">
+              <span className="hidden sm:inline">Weekly Schedule</span>
+              <span className="sm:hidden">Weekly</span>
+            </TabsTrigger>
+            <TabsTrigger value="dates" className="text-xs sm:text-sm">
+              <span className="hidden sm:inline">Specific Dates</span>
+              <span className="sm:hidden">Dates</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="weekly" className="space-y-6 mt-6">
@@ -226,10 +232,10 @@ const DoctorAvailability = () => {
               </div>
               
               {availability.map((day, index) => (
-          <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+          <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border rounded-lg space-y-3 sm:space-y-0">
             <div className="flex items-center space-x-4">
-              <div className="w-20">
-                <Badge variant={day.isAvailable ? "default" : "secondary"}>
+              <div className="w-20 flex-shrink-0">
+                <Badge variant={day.isAvailable ? "default" : "secondary"} className="text-xs">
                   {DAYS_OF_WEEK[index]}
                 </Badge>
               </div>
@@ -245,14 +251,14 @@ const DoctorAvailability = () => {
             </div>
             
             {day.isAvailable && (
-              <div className="flex items-center space-x-4">
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 ml-24 sm:ml-0">
                 <div className="flex items-center space-x-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
-                  <Label className="text-sm">From:</Label>
+                  <Label className="text-sm whitespace-nowrap">From:</Label>
                   <select
                     value={day.startTime}
                     onChange={(e) => handleTimeChange(index, 'startTime', e.target.value)}
-                    className="px-2 py-1 border rounded text-sm"
+                    className="px-2 py-1 border rounded text-sm min-w-0 flex-1"
                   >
                     {TIME_SLOTS.map((slot) => (
                       <option key={slot.startTime} value={slot.startTime}>
@@ -263,11 +269,11 @@ const DoctorAvailability = () => {
                 </div>
                 
                 <div className="flex items-center space-x-2">
-                  <Label className="text-sm">To:</Label>
+                  <Label className="text-sm whitespace-nowrap">To:</Label>
                   <select
                     value={day.endTime}
                     onChange={(e) => handleTimeChange(index, 'endTime', e.target.value)}
-                    className="px-2 py-1 border rounded text-sm"
+                    className="px-2 py-1 border rounded text-sm min-w-0 flex-1"
                   >
                     {TIME_SLOTS.map((slot) => (
                       <option key={slot.endTime} value={slot.endTime}>
@@ -282,11 +288,12 @@ const DoctorAvailability = () => {
             ))}
             </div>
 
-            <div className="flex justify-end space-x-2 pt-4 border-t">
+            <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2 pt-4 border-t">
               <Button 
                 variant="outline" 
                 onClick={handleReset}
                 disabled={updateAvailabilityMutation.isPending}
+                className="w-full sm:w-auto"
               >
                 <RotateCcw className="h-4 w-4 mr-2" />
                 Reset
@@ -294,27 +301,30 @@ const DoctorAvailability = () => {
               <Button 
                 onClick={handleSave}
                 disabled={updateAvailabilityMutation.isPending}
-                className="bg-primary hover:bg-primary-dark"
+                className="bg-primary hover:bg-primary-dark w-full sm:w-auto"
               >
                 <Save className="h-4 w-4 mr-2" />
-                {updateAvailabilityMutation.isPending ? "Saving..." : "Save Weekly Schedule"}
+                <span className="hidden sm:inline">Save Weekly Schedule</span>
+                <span className="sm:hidden">Save Schedule</span>
               </Button>
             </div>
           </TabsContent>
 
           <TabsContent value="dates" className="space-y-6 mt-6">
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CalendarDays className="h-4 w-4" />
-                  <span>Override availability for specific dates</span>
+                  <span className="hidden sm:inline">Override availability for specific dates</span>
+                  <span className="sm:hidden">Date overrides</span>
                 </div>
                 
                 <Popover open={datePopoverOpen} onOpenChange={setDatePopoverOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="w-full sm:w-auto">
                       <Calendar className="h-4 w-4 mr-2" />
-                      Add Date Override
+                      <span className="hidden sm:inline">Add Date Override</span>
+                      <span className="sm:hidden">Add Override</span>
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="end">
@@ -350,41 +360,51 @@ const DoctorAvailability = () => {
                   {dateSpecificAvailability
                     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                     .map((dateAvail) => (
-                      <div key={dateAvail.date} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-32">
-                          <Badge variant="outline" className="text-sm">
-                            {format(new Date(dateAvail.date), 'MMM d, yyyy')}
-                          </Badge>
-                          <p className="text-xs text-muted-foreground mt-1">
-                            {format(new Date(dateAvail.date), 'EEEE')}
-                          </p>
+                      <div key={dateAvail.date} className="flex flex-col space-y-4 p-4 border rounded-lg">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-32 flex-shrink-0">
+                              <Badge variant="outline" className="text-sm">
+                                {format(new Date(dateAvail.date), 'MMM d, yyyy')}
+                              </Badge>
+                              <p className="text-xs text-muted-foreground mt-1">
+                                {format(new Date(dateAvail.date), 'EEEE')}
+                              </p>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Switch
+                                checked={dateAvail.isAvailable}
+                                onCheckedChange={(checked) => 
+                                  updateDateSpecificAvailability(dateAvail.date, 'isAvailable', checked)
+                                }
+                              />
+                              <Label className="text-sm">
+                                {dateAvail.isAvailable ? "Available" : "Unavailable"}
+                              </Label>
+                            </div>
+                          </div>
+                          
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeDateSpecificAvailability(dateAvail.date)}
+                            className="text-destructive hover:text-destructive self-start sm:self-center"
+                          >
+                            Remove
+                          </Button>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Switch
-                            checked={dateAvail.isAvailable}
-                            onCheckedChange={(checked) => 
-                              updateDateSpecificAvailability(dateAvail.date, 'isAvailable', checked)
-                            }
-                          />
-                          <Label className="text-sm">
-                            {dateAvail.isAvailable ? "Available" : "Unavailable"}
-                          </Label>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-4">
+                        
                         {dateAvail.isAvailable && (
-                          <>
+                          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 ml-0 sm:ml-36">
                             <div className="flex items-center space-x-2">
                               <Clock className="h-4 w-4 text-muted-foreground" />
-                              <Label className="text-sm">From:</Label>
+                              <Label className="text-sm whitespace-nowrap">From:</Label>
                               <select
                                 value={dateAvail.startTime}
                                 onChange={(e) => 
                                   updateDateSpecificAvailability(dateAvail.date, 'startTime', e.target.value)
                                 }
-                                className="px-2 py-1 border rounded text-sm"
+                                className="px-2 py-1 border rounded text-sm min-w-0 flex-1"
                               >
                                 {TIME_SLOTS.map((slot) => (
                                   <option key={slot.startTime} value={slot.startTime}>
@@ -395,13 +415,13 @@ const DoctorAvailability = () => {
                             </div>
                             
                             <div className="flex items-center space-x-2">
-                              <Label className="text-sm">To:</Label>
+                              <Label className="text-sm whitespace-nowrap">To:</Label>
                               <select
                                 value={dateAvail.endTime}
                                 onChange={(e) => 
                                   updateDateSpecificAvailability(dateAvail.date, 'endTime', e.target.value)
                                 }
-                                className="px-2 py-1 border rounded text-sm"
+                                className="px-2 py-1 border rounded text-sm min-w-0 flex-1"
                               >
                                 {TIME_SLOTS.map((slot) => (
                                   <option key={slot.endTime} value={slot.endTime}>
@@ -410,19 +430,9 @@ const DoctorAvailability = () => {
                                 ))}
                               </select>
                             </div>
-                          </>
+                          </div>
                         )}
-                        
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeDateSpecificAvailability(dateAvail.date)}
-                          className="text-destructive hover:text-destructive"
-                        >
-                          Remove
-                        </Button>
                       </div>
-                    </div>
                     ))}
                 </div>
               )}
