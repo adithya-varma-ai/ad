@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 import { 
   Brain, 
   Users, 
@@ -37,9 +37,9 @@ const hrItems = [
 
 export function MobileSidebar() {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
+  const [location] = useLocation();
   const { currentRole } = useRole();
-  const currentPath = location.pathname;
+  const currentPath = location;
 
   const isActive = (path: string) => currentPath === path;
   // Use role context to determine which items to show
@@ -71,21 +71,19 @@ export function MobileSidebar() {
               {currentRole === 'doctor' ? "Doctor Portal" : "HR Portal"}
             </h4>
             {items.map((item) => (
-              <NavLink
+              <Link
                 key={item.title}
                 to={item.url}
                 onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                    isActive
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  }`
-                }
+                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                  isActive(item.url)
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                }`}
               >
                 <item.icon className="h-5 w-5" />
                 {item.title}
-              </NavLink>
+              </Link>
             ))}
           </div>
         </div>

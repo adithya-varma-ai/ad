@@ -1,10 +1,10 @@
-import { Outlet } from "react-router-dom";
+
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileSidebar } from "@/components/MobileSidebar";
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useIsMobile();
 
   if (isMobile) {
@@ -17,7 +17,7 @@ const DashboardLayout = () => {
           </div>
         </header>
         <main className="flex-1 p-4 overflow-auto">
-          <Outlet />
+          {children}
         </main>
       </div>
     );
@@ -35,7 +35,7 @@ const DashboardLayout = () => {
             </div>
           </header>
           <main className="flex-1 p-6 overflow-auto">
-            <Outlet />
+            {children}
           </main>
         </div>
       </div>

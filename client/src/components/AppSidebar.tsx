@@ -1,5 +1,5 @@
 
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 import { 
   Brain, 
   Users, 
@@ -38,9 +38,9 @@ const hrItems = [
 
 export function AppSidebar() {
   const { state } = useSidebar();
-  const location = useLocation();
+  const [location] = useLocation();
   const { currentRole } = useRole();
-  const currentPath = location.pathname;
+  const currentPath = location;
   const collapsed = state === "collapsed";
 
   const isActive = (path: string) => currentPath === path;
@@ -78,13 +78,13 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink 
+                    <Link 
                       to={item.url} 
-                      className={getNavCls}
+                      className={`flex items-center px-4 py-2 rounded-md transition-colors ${getNavCls({ isActive: isActive(item.url) })}`}
                     >
                       <item.icon className="h-5 w-5" />
                       {!collapsed && <span className="ml-2">{item.title}</span>}
-                    </NavLink>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

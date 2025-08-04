@@ -17,6 +17,9 @@ import Appointments from "./pages/Appointments";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
+// Layout
+import DashboardLayout from "./components/layout/DashboardLayout";
+
 
 
 const queryClient = new QueryClient();
@@ -32,13 +35,49 @@ const App = () => (
             <Route path="/" component={Index} />
             <Route path="/login" component={Login} />
             
-            {/* Dashboard Routes */}
-            <Route path="/dashboard/doctor" component={DoctorDashboard} />
-            <Route path="/dashboard/hr" component={HRDashboard} />
-            <Route path="/dashboard/analytics" component={Analytics} />
-            <Route path="/dashboard/appointments" component={Appointments} />
-            <Route path="/dashboard/patient/:id" component={PatientProfile} />
-            <Route path="/dashboard/settings" component={Settings} />
+            {/* Dashboard Routes with Layout */}
+            <Route path="/dashboard/doctor">
+              {() => (
+                <DashboardLayout>
+                  <DoctorDashboard />
+                </DashboardLayout>
+              )}
+            </Route>
+            <Route path="/dashboard/hr">
+              {() => (
+                <DashboardLayout>
+                  <HRDashboard />
+                </DashboardLayout>
+              )}
+            </Route>
+            <Route path="/dashboard/analytics">
+              {() => (
+                <DashboardLayout>
+                  <Analytics />
+                </DashboardLayout>
+              )}
+            </Route>
+            <Route path="/dashboard/appointments">
+              {() => (
+                <DashboardLayout>
+                  <Appointments />
+                </DashboardLayout>
+              )}
+            </Route>
+            <Route path="/dashboard/patient/:id">
+              {() => (
+                <DashboardLayout>
+                  <PatientProfile />
+                </DashboardLayout>
+              )}
+            </Route>
+            <Route path="/dashboard/settings">
+              {() => (
+                <DashboardLayout>
+                  <Settings />
+                </DashboardLayout>
+              )}
+            </Route>
             
             {/* Catch-all route */}
             <Route component={NotFound} />
